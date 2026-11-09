@@ -1,0 +1,5 @@
+   route to: default
+destination: default
+       mask: default
+    gateway: fe80::1%en0
+  interface: en0
