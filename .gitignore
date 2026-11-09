@@ -1,0 +1,5 @@
+homebase
+/homebase
+*.db
+*.db-*
+.env
