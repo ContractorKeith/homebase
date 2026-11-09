@@ -213,3 +213,34 @@ func TestAgentDropsBatchTheHubRejects(t *testing.T) {
 		t.Fatalf("calls %d, pending %d: a 400 must not retry and must drop the batch", calls, len(a.pending.Samples))
 	}
 }
+
+func TestLoopDelaysFirstSpeedTest(t *testing.T) {
+	old := firstSpeedDelay
+	firstSpeedDelay = func() time.Duration { return 10 * time.Minute }
+	defer func() { firstSpeedDelay = old }()
+	hub := &fakeHub{}
+	srv := httptest.NewServer(hub)
+	defer srv.Close()
+	now := t0
+	a := newTestAgent(srv.URL, &now)
+	a.interval, a.speedEvery = time.Minute, 6*time.Hour
+	ctx, cancel := context.WithCancel(context.Background())
+	var speedAt []time.Duration
+	a.speed = func(context.Context) model.SpeedTest {
+		speedAt = append(speedAt, now.Sub(t0))
+		return model.SpeedTest{Machine: "m1", TS: now}
+	}
+	rounds := 0
+	a.sleep = func(context.Context, time.Duration) error {
+		now = now.Add(time.Minute)
+		if rounds++; rounds == 20 {
+			cancel()
+			return context.Canceled
+		}
+		return nil
+	}
+	a.loop(ctx)
+	if len(speedAt) != 1 || speedAt[0] != 10*time.Minute {
+		t.Fatalf("speed tests at %v, want one at 10m", speedAt)
+	}
+}
