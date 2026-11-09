@@ -1,0 +1,11 @@
+[Unit]
+Description=homebase agent
+
+[Service]
+ExecStart="/opt/hb/homebase" "agent" "--hub" "http://mac-studio:7780" "--key-file" "/home/k/.config/homebase/key"
+Environment="PATH=/home/k/.local/share/mise/shims:/opt/homebrew/bin:/usr/local/bin:/home/k/.local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
