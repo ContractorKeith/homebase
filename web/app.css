@@ -5,6 +5,8 @@
   --blue: #2a78d6; --orange: #eb6834; --aqua: #1baf7a;
   --good: #1a7f4b; --bad: #b3261e;
   --cell-off: #e7e6e1;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100;
+  --series-5: #e87ba4; --series-6: #008300; --series-7: #6250d6; --series-8: #e34948;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -13,6 +15,8 @@
     --blue: #3987e5; --orange: #d95926; --aqua: #199e70;
     --good: #4cc38a; --bad: #f2776f;
     --cell-off: #2a2a27;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+    --series-5: #d55181; --series-6: #008300; --series-7: #9085e9; --series-8: #e66767;
   }
 }
 * { box-sizing: border-box; }
@@ -49,7 +53,8 @@ main { padding: 24px; max-width: 1400px; margin: 0 auto; }
 .cores i { height: 18px; border-radius: 2px; background: var(--cell-off); }
 .bar2 { height: 6px; border-radius: 3px; background: var(--cell-off); overflow: hidden; }
 .bar2 i { display: block; height: 100%; background: var(--orange); }
-.slot-netq { min-height: 20px; font-size: .8125rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; }
+.top { display: flex; flex-direction: column; gap: 12px; }
+.slot-netq { min-height: 20px; font-size: .8125rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 6px; }
 .sub { font-size: .75rem; color: var(--muted); }
 dialog { width: min(900px, 94vw); max-height: 92vh; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); padding: 16px 20px; }
 dialog::backdrop { background: rgb(0 0 0 / .45); }
@@ -61,4 +66,31 @@ dialog h2 { font-size: 1.125rem; margin: 0; }
 .chart .none { color: var(--muted); font-size: .875rem; padding: 16px 0; }
 .u-legend { font-size: .75rem; color: var(--text-2); }
 .u-legend .u-value { font-variant-numeric: tabular-nums; }
+button.linkrow { all: unset; display: flex; flex-direction: column; gap: 6px; cursor: pointer; border-radius: 6px; }
+button.linkrow:hover { background: var(--bg); }
+button.linkrow:focus-visible, .mini:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.mini { font: inherit; font-size: .8125rem; padding: 4px 10px; border: 1px solid var(--line); border-radius: 8px; background: none; color: var(--text-2); cursor: pointer; }
+.mini:hover:not(:disabled) { background: var(--bg); }
+.mini:disabled { opacity: .55; cursor: default; }
+.toolbar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.toolbar .ranges { margin-left: 0; }
+.ranges button { font-size: .875rem; }
+.view-body { display: flex; flex-direction: column; gap: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+.kpi-label { font-size: .8125rem; color: var(--text-2); }
+.kpi-value { font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.kpi-value.long { font-size: 1.125rem; line-height: 2.25rem; }
+.kpi-delta { font-size: .8125rem; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; min-width: 0; overflow-x: auto; }
+.panel h3 { margin: 0 0 8px; font-size: .9375rem; }
+.plot { min-height: 220px; }
+.panel .empty { padding: 24px 0; }
+table.data { width: 100%; border-collapse: collapse; font-size: .875rem; font-variant-numeric: tabular-nums; }
+table.data th, table.data td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--line); }
+table.data th:first-child { text-align: left; font-weight: 500; }
+table.data thead th { color: var(--text-2); font-weight: 500; font-size: .8125rem; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; }
+code { font-size: .875em; }
+.u-legend .u-marker { width: 10px !important; height: 10px !important; border-radius: 2px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

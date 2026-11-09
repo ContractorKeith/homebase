@@ -1,0 +1,473 @@
+{
+  "buckets": [
+    {
+      "start": "2026-10-10T00:00:00-04:00",
+      "label": "Oct 10"
+    },
+    {
+      "start": "2026-10-11T00:00:00-04:00",
+      "label": "Oct 11"
+    },
+    {
+      "start": "2026-10-12T00:00:00-04:00",
+      "label": "Oct 12"
+    },
+    {
+      "start": "2026-10-13T00:00:00-04:00",
+      "label": "Oct 13"
+    },
+    {
+      "start": "2026-10-14T00:00:00-04:00",
+      "label": "Oct 14"
+    },
+    {
+      "start": "2026-10-15T00:00:00-04:00",
+      "label": "Oct 15"
+    },
+    {
+      "start": "2026-10-16T00:00:00-04:00",
+      "label": "Oct 16"
+    },
+    {
+      "start": "2026-10-17T00:00:00-04:00",
+      "label": "Oct 17"
+    },
+    {
+      "start": "2026-10-18T00:00:00-04:00",
+      "label": "Oct 18"
+    },
+    {
+      "start": "2026-10-19T00:00:00-04:00",
+      "label": "Oct 19"
+    },
+    {
+      "start": "2026-10-20T00:00:00-04:00",
+      "label": "Oct 20"
+    },
+    {
+      "start": "2026-10-21T00:00:00-04:00",
+      "label": "Oct 21"
+    },
+    {
+      "start": "2026-10-22T00:00:00-04:00",
+      "label": "Oct 22"
+    },
+    {
+      "start": "2026-10-23T00:00:00-04:00",
+      "label": "Oct 23"
+    },
+    {
+      "start": "2026-10-24T00:00:00-04:00",
+      "label": "Oct 24"
+    },
+    {
+      "start": "2026-10-25T00:00:00-04:00",
+      "label": "Oct 25"
+    },
+    {
+      "start": "2026-10-26T00:00:00-04:00",
+      "label": "Oct 26"
+    },
+    {
+      "start": "2026-10-27T00:00:00-04:00",
+      "label": "Oct 27"
+    },
+    {
+      "start": "2026-10-28T00:00:00-04:00",
+      "label": "Oct 28"
+    },
+    {
+      "start": "2026-10-29T00:00:00-04:00",
+      "label": "Oct 29"
+    },
+    {
+      "start": "2026-10-30T00:00:00-04:00",
+      "label": "Oct 30"
+    },
+    {
+      "start": "2026-10-31T00:00:00-04:00",
+      "label": "Oct 31"
+    },
+    {
+      "start": "2026-11-01T00:00:00-04:00",
+      "label": "Nov 1"
+    },
+    {
+      "start": "2026-11-02T00:00:00-05:00",
+      "label": "Nov 2"
+    },
+    {
+      "start": "2026-11-03T00:00:00-05:00",
+      "label": "Nov 3"
+    },
+    {
+      "start": "2026-11-04T00:00:00-05:00",
+      "label": "Nov 4"
+    },
+    {
+      "start": "2026-11-05T00:00:00-05:00",
+      "label": "Nov 5"
+    },
+    {
+      "start": "2026-11-06T00:00:00-05:00",
+      "label": "Nov 6"
+    },
+    {
+      "start": "2026-11-07T00:00:00-05:00",
+      "label": "Nov 7"
+    },
+    {
+      "start": "2026-11-08T00:00:00-05:00",
+      "label": "Nov 8"
+    }
+  ],
+  "prevTotals": {
+    "commits": 194,
+    "additions": 1800,
+    "deletions": 170,
+    "prsOpened": 30,
+    "prsMerged": 20,
+    "issues": 30,
+    "reviews": 17
+  },
+  "range": "30d",
+  "repos": [
+    {
+      "repo": "keith/repo-3",
+      "commits": 24,
+      "additions": 180,
+      "deletions": 15,
+      "prsOpened": 3,
+      "prsMerged": 3,
+      "issues": 3,
+      "reviews": 3
+    },
+    {
+      "repo": "keith/repo-7",
+      "commits": 20,
+      "additions": 170,
+      "deletions": 17,
+      "prsOpened": 5,
+      "prsMerged": 0,
+      "issues": 3,
+      "reviews": 2
+    },
+    {
+      "repo": "keith/repo-1",
+      "commits": 18,
+      "additions": 130,
+      "deletions": 13,
+      "prsOpened": 5,
+      "prsMerged": 0,
+      "issues": 2,
+      "reviews": 2
+    },
+    {
+      "repo": "keith/repo-2",
+      "commits": 18,
+      "additions": 170,
+      "deletions": 9,
+      "prsOpened": 3,
+      "prsMerged": 3,
+      "issues": 3,
+      "reviews": 0
+    },
+    {
+      "repo": "keith/repo-4",
+      "commits": 18,
+      "additions": 210,
+      "deletions": 18,
+      "prsOpened": 0,
+      "prsMerged": 0,
+      "issues": 3,
+      "reviews": 0
+    },
+    {
+      "repo": "keith/repo-11",
+      "commits": 16,
+      "additions": 100,
+      "deletions": 18,
+      "prsOpened": 2,
+      "prsMerged": 2,
+      "issues": 2,
+      "reviews": 2
+    },
+    {
+      "repo": "keith/repo-6",
+      "commits": 15,
+      "additions": 150,
+      "deletions": 15,
+      "prsOpened": 3,
+      "prsMerged": 3,
+      "issues": 3,
+      "reviews": 0
+    },
+    {
+      "repo": "keith/repo-0",
+      "commits": 13,
+      "additions": 150,
+      "deletions": 10,
+      "prsOpened": 2,
+      "prsMerged": 2,
+      "issues": 2,
+      "reviews": 2
+    },
+    {
+      "repo": "keith/repo-10",
+      "commits": 12,
+      "additions": 90,
+      "deletions": 12,
+      "prsOpened": 0,
+      "prsMerged": 0,
+      "issues": 2,
+      "reviews": 0
+    },
+    {
+      "repo": "keith/repo-5",
+      "commits": 12,
+      "additions": 200,
+      "deletions": 27,
+      "prsOpened": 3,
+      "prsMerged": 3,
+      "issues": 3,
+      "reviews": 0
+    }
+  ],
+  "series": {
+    "commits": [
+      9,
+      3,
+      4,
+      12,
+      5,
+      1,
+      15,
+      7,
+      2,
+      6,
+      9,
+      3,
+      9,
+      3,
+      4,
+      12,
+      5,
+      1,
+      15,
+      7,
+      2,
+      6,
+      9,
+      3,
+      9,
+      3,
+      4,
+      12,
+      5,
+      1
+    ],
+    "additions": [
+      150,
+      80,
+      30,
+      60,
+      20,
+      50,
+      120,
+      60,
+      20,
+      30,
+      100,
+      40,
+      90,
+      40,
+      10,
+      150,
+      80,
+      30,
+      60,
+      20,
+      50,
+      120,
+      60,
+      20,
+      30,
+      100,
+      40,
+      90,
+      40,
+      10
+    ],
+    "deletions": [
+      15,
+      8,
+      3,
+      6,
+      2,
+      0,
+      15,
+      8,
+      3,
+      6,
+      2,
+      0,
+      15,
+      8,
+      3,
+      6,
+      2,
+      0,
+      15,
+      8,
+      3,
+      6,
+      2,
+      0,
+      15,
+      8,
+      3,
+      6,
+      2,
+      0
+    ],
+    "prsOpened": [
+      3,
+      0,
+      1,
+      0,
+      2,
+      0,
+      3,
+      0,
+      1,
+      0,
+      2,
+      0,
+      3,
+      0,
+      1,
+      0,
+      2,
+      0,
+      3,
+      0,
+      1,
+      0,
+      2,
+      0,
+      3,
+      0,
+      1,
+      0,
+      2,
+      0
+    ],
+    "prsMerged": [
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      0
+    ],
+    "issues": [
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0,
+      3,
+      0,
+      0
+    ],
+    "reviews": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ]
+  },
+  "totals": {
+    "commits": 186,
+    "additions": 1800,
+    "deletions": 170,
+    "prsOpened": 30,
+    "prsMerged": 20,
+    "issues": 30,
+    "reviews": 13
+  },
+  "tz": "America/New_York"
+}
+

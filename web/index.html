@@ -24,10 +24,12 @@
     <p id="machines-empty" class="empty" hidden>No machines reported yet.</p>
   </section>
   <section id="panel-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
-    <p class="empty">Token usage: coming in M5.</p>
+    <div class="toolbar"><div data-range-control></div></div>
+    <div class="view-body"></div>
   </section>
   <section id="panel-github" role="tabpanel" aria-labelledby="tab-github" hidden>
-    <p class="empty">GitHub activity: coming in M5.</p>
+    <div class="toolbar"><div data-range-control></div></div>
+    <div class="view-body"></div>
   </section>
 </main>
 <dialog id="history" aria-labelledby="history-title">
@@ -37,6 +39,14 @@
     <button class="close" aria-label="Close">×</button>
   </header>
   <div id="history-body"></div>
+</dialog>
+<dialog id="netdlg" aria-labelledby="netdlg-title">
+  <header>
+    <h2 id="netdlg-title"></h2>
+    <div class="ranges" role="group" aria-label="Latency range"></div>
+    <button class="close" aria-label="Close">×</button>
+  </header>
+  <div id="netdlg-body" class="chart"></div>
 </dialog>
 <script src="/vendor/uplot/uPlot.iife.min.js"></script>
 <script type="module" src="/js/main.js"></script>

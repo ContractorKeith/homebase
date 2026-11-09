@@ -1,5 +1,6 @@
 // One machine card, rendered from a /api/machines item. Re-rendered in place on each update.
 import { bytes, DASH, esc, known, mhz, pct, rate, rpm, temp, uptime, watts } from "./fmt.js";
+import { netqHTML } from "./netq.js";
 
 const SPARK_POINTS = 90;
 const sparks = new Map(); // machine id -> recent CPU totals
@@ -43,18 +44,17 @@ function gpu(g, i, many) {
     <div class="row"><span>VRAM</span><b>${bytes(g.memUsed)} / ${bytes(g.memTotal)}</b></div>`;
 }
 
-// netqText fills the network-quality slot once M3/M4 send it; empty for now.
-function netqText(q) {
-  return q ? esc(JSON.stringify(q)) : "network quality: —";
-}
-
 export function renderCard(el, m) {
   const history = pushSpark(m);
   el.classList.toggle("off", !m.online);
   el.setAttribute("aria-label", `${m.name}: open history`);
   const sensors = [...m.temps.filter((t) => known(t.value)).map((t) => `${esc(t.name ?? "sensor")} ${temp(t.value)}`),
     ...m.fans.map((f) => `${esc(f.name ?? "fan")} ${rpm(f.value)}`)];
-  el.innerHTML = `
+  // The network slot is built once and repainted by netq.js, so its buttons keep focus.
+  if (!el.querySelector(":scope > .top")) {
+    el.innerHTML = `<div class="top"></div><div class="slot-netq" data-slot="netq" data-id="${esc(m.id)}">${netqHTML(m.id)}</div>`;
+  }
+  el.querySelector(":scope > .top").innerHTML = `
     <div class="head"><h3>${esc(m.name)}</h3><span class="state ${m.online ? "on" : ""}">${m.online ? "online" : "offline"}</span>
       <span class="up" title="uptime">up ${uptime(m.uptime)}</span></div>
     <div class="body" style="display:flex;flex-direction:column;gap:12px">
@@ -65,6 +65,5 @@ export function renderCard(el, m) {
       ${m.gpus.length ? m.gpus.map((g, i) => gpu(g, i, m.gpus.length > 1)).join("") : `<div class="row"><span>GPU</span><b>${DASH}</b></div>`}
       <div class="row"><span>Fans &amp; sensors</span><span class="sub">${sensors.length ? sensors.join(" · ") : DASH}</span></div>
       <div class="row"><span>Net ↓ / ↑</span><b>${rate(m.net.rx)} / ${rate(m.net.tx)}</b></div>
-    </div>
-    <div class="slot-netq" data-slot="netq">${netqText(m.netq)}</div>`;
+    </div>`;
 }

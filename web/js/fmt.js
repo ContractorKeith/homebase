@@ -26,3 +26,16 @@ export function uptime(s) {
 
 export const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 export { known, DASH };
+
+// Compact counts for token totals: 1.2K, 3.4M, 5.6B. Unknown shows "—".
+export function count(v) {
+  if (!known(v)) return DASH;
+  const a = Math.abs(v);
+  if (a < 1000) return String(Math.round(v));
+  const u = [[1e9, "B"], [1e6, "M"], [1e3, "K"]].find(([n]) => a >= n);
+  const x = v / u[0];
+  return `${x.toFixed(Math.abs(x) < 10 ? 2 : Math.abs(x) < 100 ? 1 : 0)}${u[1]}`;
+}
+
+// Whole numbers with thousands separators.
+export const int = (v) => (known(v) ? Math.round(v).toLocaleString("en-US") : DASH);
