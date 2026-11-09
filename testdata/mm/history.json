@@ -1,0 +1,4 @@
+{"from":1762596400000,"to":1762600000000,"resolution":60000,"points":[
+  {"t":1762599900000,"cpu":20,"gpu":null,"cpuTemp":47,"gpuTemp":null,"gpuPower":null,"rx":100,"tx":50,"mem":40},
+  {"t":1762599960000,"cpu":30.5,"gpu":10,"cpuTemp":null,"gpuTemp":40,"gpuPower":8,"rx":null,"tx":null,"mem":41}
+]}
