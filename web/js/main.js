@@ -1,6 +1,9 @@
 // Tabs, the live /api/stream connection and the machine cards.
 import { renderCard } from "./card.js";
 import { openHistory } from "./history.js";
+import { refresh as refreshGitHub } from "./github.js";
+import { parseHash, writeHash } from "./range.js";
+import { refresh as refreshTokens } from "./tokens.js";
 
 const machines = new Map();
 const cards = new Map();
@@ -17,7 +20,10 @@ function select(tab) {
     t.tabIndex = on ? 0 : -1;
     document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
   });
-  history.replaceState(null, "", `#${tab.id.replace("tab-", "")}`);
+  const name = tab.id.replace("tab-", "");
+  writeHash(name);
+  if (name === "tokens") refreshTokens();
+  if (name === "github") refreshGitHub();
 }
 tabs.forEach((t, i) => {
   t.addEventListener("click", () => select(t));
@@ -26,15 +32,18 @@ tabs.forEach((t, i) => {
     if (n) { const next = tabs[(i + n + tabs.length) % tabs.length]; next.focus(); select(next); }
   });
 });
-select(document.getElementById(`tab-${location.hash.slice(1)}`) ?? tabs[0]);
+select(document.getElementById(`tab-${parseHash().tab}`) ?? tabs[0]);
 
 function draw(m) {
   let el = cards.get(m.id);
   if (!el) {
-    el = document.createElement("button");
-    el.type = "button";
+    // An article, not a button: the network slot holds its own buttons.
+    el = document.createElement("article");
     el.className = "card";
-    el.addEventListener("click", () => openHistory(machines.get(m.id)));
+    el.tabIndex = 0;
+    const open = () => openHistory(machines.get(m.id));
+    el.addEventListener("click", (e) => { if (!e.target.closest("[data-act]")) open(); });
+    el.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target === el) open(); });
     cards.set(m.id, el);
   }
   renderCard(el, m);
