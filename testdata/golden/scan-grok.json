@@ -1,0 +1,50 @@
+[
+  {
+    "machine": "",
+    "agent": "grok",
+    "model": "grok-demo-1",
+    "hour": "2026-11-01T10:00:00Z",
+    "input": 400,
+    "output": 100,
+    "cacheRead": 600,
+    "cacheWrite": 0,
+    "reasoning": 40,
+    "sessions": 1
+  },
+  {
+    "machine": "",
+    "agent": "grok",
+    "model": "grok-demo-3",
+    "hour": "2026-11-01T10:00:00Z",
+    "input": 50,
+    "output": 8,
+    "cacheRead": 20,
+    "cacheWrite": 0,
+    "reasoning": 3,
+    "sessions": 1
+  },
+  {
+    "machine": "",
+    "agent": "grok",
+    "model": "grok-demo-1",
+    "hour": "2026-11-01T11:00:00Z",
+    "input": 200,
+    "output": 30,
+    "cacheRead": 100,
+    "cacheWrite": 10,
+    "reasoning": 10,
+    "sessions": 1
+  },
+  {
+    "machine": "",
+    "agent": "grok",
+    "model": "grok-demo-2",
+    "hour": "2026-11-01T11:00:00Z",
+    "input": 200,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "reasoning": 10,
+    "sessions": 1
+  }
+]

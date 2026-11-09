@@ -1,0 +1,26 @@
+[
+  {
+    "machine": "",
+    "agent": "claude",
+    "model": "claude-demo-1",
+    "hour": "2026-11-01T10:00:00Z",
+    "input": 11,
+    "output": 25,
+    "cacheRead": 300,
+    "cacheWrite": 50,
+    "reasoning": 0,
+    "sessions": 1
+  },
+  {
+    "machine": "",
+    "agent": "claude",
+    "model": "claude-demo-2",
+    "hour": "2026-11-01T11:00:00Z",
+    "input": 5,
+    "output": 11,
+    "cacheRead": 6,
+    "cacheWrite": 9,
+    "reasoning": 0,
+    "sessions": 2
+  }
+]

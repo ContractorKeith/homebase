@@ -1,0 +1,26 @@
+[
+  {
+    "machine": "",
+    "agent": "codex",
+    "model": "codex-demo-1",
+    "hour": "2026-11-01T10:00:00Z",
+    "input": 800,
+    "output": 250,
+    "cacheRead": 1000,
+    "cacheWrite": 20,
+    "reasoning": 80,
+    "sessions": 1
+  },
+  {
+    "machine": "",
+    "agent": "codex",
+    "model": "codex-demo-2",
+    "hour": "2026-11-01T11:00:00Z",
+    "input": 200,
+    "output": 50,
+    "cacheRead": 500,
+    "cacheWrite": 0,
+    "reasoning": 10,
+    "sessions": 1
+  }
+]
