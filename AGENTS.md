@@ -10,7 +10,7 @@ usage and network quality. Keith opens it in a browser on the MacBook. "Done" fo
 every v1 row in `docs/PLAN.md` §3 working across all three machines.
 
 ## Status
-planned — scaffold and plan only, no code yet. Last touched 2026-11-08.
+M0 done (model types, SQLite store, CLI skeleton, CI). M1–M3 in progress. Last touched 2026-11-08.
 
 ## Pointers
 - `docs/PLAN.md`: goal, feature matrix, architecture, data model, API, milestones.

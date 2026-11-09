@@ -1,0 +1,26 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  accept:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go install honnef.co/go/tools/cmd/staticcheck@v0.8.2
+      - run: echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+      - run: scripts/accept.sh
+      - name: cross-compile
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          for os in linux darwin; do for a in amd64 arm64; do
+            GOOS=$os GOARCH=$a CGO_ENABLED=0 go build -o /dev/null ./cmd/homebase
+          done; done

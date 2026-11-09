@@ -9,10 +9,6 @@ bin="${ACCEPT_BIN:-./homebase}"
 scratch="$(mktemp -d)"
 trap 'rm -r "$scratch"' EXIT
 
-if [ ! -f go.mod ]; then
-  echo "accept: no code yet (pre-M0)"; exit 0
-fi
-
 echo "== gate"
 go test -race ./...
 test -z "$(gofmt -l .)"
@@ -33,6 +29,8 @@ echo "== goldens"
 # M5: start hub on "$scratch/hub.db" with fake machine-monitor; diff each /api range with its golden.
 
 echo "== live checks"
+"$bin" version | grep -q '^homebase '                    # version prints
+set +e; "$bin" nope 2>/dev/null; rc=$?; set -e; test $rc -eq 2   # unknown command is a usage error
 # M4: post the same usage batch twice; totals unchanged.
 # M4: post without the key; expect HTTP 401.
 

@@ -1,6 +1,6 @@
 # homebase — Build Plan
 
-Status: planned, no code yet (2026-11-08). Sources studied: machine-monitor's hub API and
+Status: M0 landed 2026-11-08. Sources studied: machine-monitor's hub API and
 report schema (`internal/report/report.go`), and the session stores Claude Code, Codex and
 Grok write on Omarchy.
 
@@ -47,6 +47,7 @@ cmd/homebase/           hub | agent | scan | version
 internal/tokens/        session parsers (claude, codex, grok) → hourly Usage rows; pure, fixture-tested
 internal/netq/          ping and speed probes → NetSample rows
 internal/github/        gh client, contribution + commit-stat fetch, cache
+internal/model/         shared row and batch types (Usage, NetSample, SpeedTest, GitHubDay, batches)
 internal/store/         SQLite schema, migrations, upserts, range queries (the only package touching the DB)
 internal/mm/            machine-monitor hub client (devices snapshot, SSE, history)
 internal/hub/           HTTP API, agent ingest, schedulers, embedded web UI
