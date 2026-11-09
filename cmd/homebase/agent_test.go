@@ -196,3 +196,20 @@ func TestAgentFlags(t *testing.T) {
 		})
 	}
 }
+
+func TestAgentDropsBatchTheHubRejects(t *testing.T) {
+	calls := 0
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		calls++
+		w.WriteHeader(http.StatusBadRequest)
+	}))
+	defer srv.Close()
+	now := t0
+	a := newTestAgent(srv.URL, &now)
+	if err := a.round(context.Background(), false); err == nil {
+		t.Fatal("want error on 400")
+	}
+	if calls != 1 || len(a.pending.Samples) != 0 {
+		t.Fatalf("calls %d, pending %d: a 400 must not retry and must drop the batch", calls, len(a.pending.Samples))
+	}
+}

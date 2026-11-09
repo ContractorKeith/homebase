@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -88,6 +89,13 @@ func (a *agent) post(ctx context.Context) (model.IngestReply, error) {
 			a.pending = model.NetBatch{}
 			return reply, nil
 		}
+		var he hubStatus
+		if errors.As(err, &he) && he.permanent() {
+			// The hub refused this batch's content; resending it would block every later
+			// round, so drop it.
+			a.pending = model.NetBatch{}
+			return reply, err
+		}
 		if try == postTries || ctx.Err() != nil {
 			return reply, err
 		}
@@ -113,7 +121,7 @@ func (a *agent) postOnce(ctx context.Context, body []byte) (model.IngestReply, e
 	defer resp.Body.Close()
 	b, _ := io.ReadAll(io.LimitReader(resp.Body, maxBodyRead))
 	if resp.StatusCode/100 != 2 {
-		return reply, fmt.Errorf("hub returned %s", resp.Status)
+		return reply, hubStatus(resp.StatusCode)
 	}
 	if len(bytes.TrimSpace(b)) > 0 {
 		if err := json.Unmarshal(b, &reply); err != nil {
@@ -121,4 +129,21 @@ func (a *agent) postOnce(ctx context.Context, body []byte) (model.IngestReply, e
 		}
 	}
 	return reply, nil
+}
+
+// hubStatus is a non-2xx reply from the hub.
+type hubStatus int
+
+func (h hubStatus) Error() string {
+	return fmt.Sprintf("hub returned %d %s", int(h), http.StatusText(int(h)))
+}
+
+// permanent reports a 4xx that resending cannot fix. 401/403 (wrong key), 408 and 429 are
+// held and retried, since fixing the key or waiting makes them succeed.
+func (h hubStatus) permanent() bool {
+	switch int(h) {
+	case 401, 403, 408, 429:
+		return false
+	}
+	return h >= 400 && h < 500
 }
