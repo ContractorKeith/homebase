@@ -22,10 +22,13 @@ echo "== fixture"
 # Isolate everything that could touch real user data.
 export HOME="$scratch/home" XDG_CACHE_HOME="$scratch/cache" XDG_CONFIG_HOME="$scratch/config"
 mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME"
-# M1: copy testdata/sessions/{claude,codex,grok} into $HOME's agent store paths.
+mkdir -p "$HOME/.claude" "$HOME/.codex" "$HOME/.grok"
+cp -R testdata/sessions/claude "$HOME/.claude/projects"
+cp -R testdata/sessions/codex "$HOME/.codex/sessions"
+cp -R testdata/sessions/grok "$HOME/.grok/sessions"
 
 echo "== goldens"
-# M1: for a in claude codex grok; do "$bin" scan --agent $a --json | diff - testdata/golden/scan-$a.json; done
+for a in claude codex grok; do "$bin" scan --agent $a --json | diff - testdata/golden/scan-$a.json; done
 # M5: start hub on "$scratch/hub.db" with fake machine-monitor; diff each /api range with its golden.
 
 echo "== live checks"
