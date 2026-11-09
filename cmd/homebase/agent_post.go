@@ -35,6 +35,11 @@ type agent struct {
 	now               func() time.Time
 	log               io.Writer
 	pending           model.NetBatch // not yet accepted by the hub
+
+	scan       func(context.Context) ([]model.Usage, error) // local token usage; nil turns usage off
+	usageEvery time.Duration
+	usageSent  map[string]uint64 // row key -> hash of the last row the hub accepted
+	usageFirst bool              // the all-rows round has completed
 }
 
 // round probes, optionally speed-tests, and posts everything pending. If the hub asks for
@@ -75,28 +80,33 @@ func (a *agent) prune() {
 	a.pending.Speed = t
 }
 
-// post sends the pending batch with retries and clears it on success.
+// post sends the pending net batch and clears it on success or a permanent refusal.
 func (a *agent) post(ctx context.Context) (model.IngestReply, error) {
 	a.pending.Machine = a.machine
 	body, err := json.Marshal(a.pending)
 	if err != nil {
 		return model.IngestReply{}, err
 	}
+	reply, err := a.send(ctx, "/api/ingest/net", body)
+	if err == nil || isPermanent(err) {
+		// A permanent refusal means the hub rejected this batch's content; resending it
+		// would block every later round, so drop it.
+		a.pending = model.NetBatch{}
+	}
+	return reply, err
+}
+
+func isPermanent(err error) bool {
+	var he hubStatus
+	return errors.As(err, &he) && he.permanent()
+}
+
+// send posts body to path, retrying transient failures with backoff.
+func (a *agent) send(ctx context.Context, path string, body []byte) (model.IngestReply, error) {
 	delay := firstDelay
 	for try := 1; ; try++ {
-		reply, err := a.postOnce(ctx, body)
-		if err == nil {
-			a.pending = model.NetBatch{}
-			return reply, nil
-		}
-		var he hubStatus
-		if errors.As(err, &he) && he.permanent() {
-			// The hub refused this batch's content; resending it would block every later
-			// round, so drop it.
-			a.pending = model.NetBatch{}
-			return reply, err
-		}
-		if try == postTries || ctx.Err() != nil {
+		reply, err := a.postOnce(ctx, path, body)
+		if err == nil || isPermanent(err) || try == postTries || ctx.Err() != nil {
 			return reply, err
 		}
 		if a.sleep(ctx, delay) != nil {
@@ -106,9 +116,9 @@ func (a *agent) post(ctx context.Context) (model.IngestReply, error) {
 	}
 }
 
-func (a *agent) postOnce(ctx context.Context, body []byte) (model.IngestReply, error) {
+func (a *agent) postOnce(ctx context.Context, path string, body []byte) (model.IngestReply, error) {
 	var reply model.IngestReply
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, a.hub+"/api/ingest/net", bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, a.hub+path, bytes.NewReader(body))
 	if err != nil {
 		return reply, err
 	}

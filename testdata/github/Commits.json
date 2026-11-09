@@ -1,0 +1,5 @@
+{"data":{"viewer":{"contributionsCollection":{"commitContributionsByRepository":[
+ {"repository":{"nameWithOwner":"ContractorKeith/homebase"},"contributions":{"nodes":[
+  {"occurredAt":"2026-11-06T00:00:00Z","commitCount":3},{"occurredAt":"2026-11-07T00:00:00Z","commitCount":2}]}},
+ {"repository":{"nameWithOwner":"ContractorKeith/squashed"},"contributions":{"nodes":[
+  {"occurredAt":"2026-11-07T00:00:00Z","commitCount":1}]}}]}}}}

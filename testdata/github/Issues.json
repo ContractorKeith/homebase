@@ -1,0 +1,3 @@
+{"data":{"viewer":{"contributionsCollection":{"issueContributions":{
+ "nodes":[{"issue":{"createdAt":"2026-11-06T08:00:00Z","repository":{"nameWithOwner":"ContractorKeith/homebase"}}}],
+ "pageInfo":{"hasNextPage":false,"endCursor":null}}}}}}

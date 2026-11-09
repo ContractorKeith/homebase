@@ -18,6 +18,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/ContractorKeith/homebase/internal/github"
 	"github.com/ContractorKeith/homebase/internal/hub"
 	"github.com/ContractorKeith/homebase/internal/mm"
 	"github.com/ContractorKeith/homebase/internal/store"
@@ -89,6 +90,7 @@ func runHub(args []string, stdout, stderr io.Writer) int {
 	mmKeyFile := fs.String("mm-key-file", envOr("HOMEBASE_MM_KEY_FILE", ""), "file holding the machine-monitor key")
 	keyFile := fs.String("key-file", envOr("HOMEBASE_KEY_FILE", defaultKeyPath()), "homebase key file (created if missing)")
 	dbPath := fs.String("db", envOr("HOMEBASE_DB", defaultDBPath()), "SQLite database path")
+	noGitHub := fs.Bool("no-github", false, "never fetch GitHub activity")
 	if err := fs.Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
 			return 0
@@ -126,6 +128,14 @@ func runHub(args []string, stdout, stderr io.Writer) int {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	go srv.Run(ctx)
+	switch {
+	case *noGitHub:
+	case !github.Available():
+		logf("github: gh not found on PATH; GitHub activity is off")
+	default:
+		sync := &hub.GitHubSync{Store: st, Src: &github.Client{}, Logf: logf}
+		go sync.Run(ctx)
+	}
 
 	httpSrv := &http.Server{Addr: *listen, Handler: srv.Handler(), ReadHeaderTimeout: 10 * time.Second}
 	go func() {

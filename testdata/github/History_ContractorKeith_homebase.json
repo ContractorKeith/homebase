@@ -1,0 +1,4 @@
+{"data":{"repository":{"defaultBranchRef":{"target":{"history":{
+ "nodes":[{"committedDate":"2026-11-07T18:00:00Z","additions":100,"deletions":20},
+          {"committedDate":"2026-11-07T10:00:00Z","additions":5,"deletions":1}],
+ "pageInfo":{"hasNextPage":true,"endCursor":"h1"}}}}}}}
