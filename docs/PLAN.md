@@ -113,9 +113,9 @@ worktree. M1, M2 and M3 can run in parallel once M0 lands.
 |---|---|---|---|
 | M0 | Scaffold, CI (Linux + macOS), `internal/store` schema, fixtures dir, `accept.sh` skeleton | – | `accept.sh` passes on the scaffold |
 | M1 | `internal/tokens` parsers for all three agents + `homebase scan` | M0 | Rows 6, 8: goldens for each fixture, dedupe and delta tests |
-| M2 | `internal/mm` client + Machines tab | M0 | Rows 1–3 against a fake machine-monitor hub |
+| M2 | Hub server (auth, embedded web, `homebase hub`), `internal/mm` client, Machines tab | M0 | Rows 1–3 against a fake machine-monitor hub |
 | M3 | `internal/netq` + agent mode posting net samples | M0 | Rows 4–5 with a fake ping and a local speed server |
-| M4 | Hub ingest, schedulers, GitHub fetcher | M1, M3 | Rows 6, 9: ingest is idempotent; gh fixtures roll up to goldens |
+| M4 | Hub ingest, agent usage posting, schedulers, GitHub fetcher | M1, M2, M3 | Rows 6, 9: ingest is idempotent; gh fixtures roll up to goldens |
 | M5 | Tokens and GitHub tabs with the five ranges | M2, M4 | Row 7: golden range responses; UI renders every range |
 | M6 | Install: launchd (macOS) and systemd user (Omarchy) units, README | M5 | Hub on the Studio, agents on all three, dashboard open on the MacBook |
 
@@ -134,3 +134,12 @@ the key and expect a 401.
 - Before the tag: `skeptic-review` on main, macOS on the Mac Studio and Linux on Omarchy.
 - Tracking: GitHub issues per milestone; the repo's card on the Basecamp `github` board.
 - The orchestrator writes the worklog entry after each merge; workers report only.
+
+### Wire rules (fixed in M0)
+- Every API call and ingest sends `Authorization: Bearer <key>`; the browser gets a cookie from `/?key=`.
+- `POST /api/ingest/usage` takes `model.UsageBatch`, `POST /api/ingest/net` takes `model.NetBatch`;
+  both reply `model.IngestReply`. `runSpeedtest: true` tells the agent to run a speed test now.
+- Machine ids follow machine-monitor: Linux `/etc/machine-id` (then `/var/lib/dbus/machine-id`,
+  then hostname); macOS `IOPlatformUUID` from `ioreg -rd1 -c IOPlatformExpertDevice` (then
+  ComputerName).
+- Ports: homebase hub 7780; machine-monitor hub 7777.

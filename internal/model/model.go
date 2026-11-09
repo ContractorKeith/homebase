@@ -71,3 +71,8 @@ type NetBatch struct {
 	Samples []NetSample `json:"samples"`
 	Speed   []SpeedTest `json:"speed"`
 }
+
+// IngestReply is the hub's JSON reply to both ingest endpoints.
+type IngestReply struct {
+	RunSpeedtest bool `json:"runSpeedtest"` // the dashboard asked this machine for a speed test now
+}
