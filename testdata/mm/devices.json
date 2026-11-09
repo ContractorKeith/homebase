@@ -1,0 +1,14 @@
+[
+  {"id":"studio-1","name":"Mac Studio","hostname":"studio","platform":"macos","os":"macOS 15","order":0,"lastSeen":1762600000000,"online":true,
+   "latest":{"uptime":864000,"receivedAt":1762600000000,
+     "cpu":{"name":"Apple M2 Ultra","usage":23.5,"cores":[10,20,30,null,90,5,0,100],"threads":8,"clockMHz":3200,"temp":48.5},
+     "gpus":[{"name":"Apple M2 Ultra GPU","usage":12,"temp":41,"memUsed":8589934592,"memTotal":68719476736,"power":9.5}],
+     "temps":[{"name":"SSD","value":35.5},{"name":"Ambient","value":null}],
+     "fans":[{"name":"Fan 1","rpm":1200}],
+     "net":{"rx":125000,"tx":32000}}},
+  {"id":"air-1","name":"MacBook Air","hostname":"air","platform":"macos","os":null,"order":1,"lastSeen":1762599000000,"online":false,
+   "latest":{"uptime":null,"receivedAt":1762599000000,
+     "cpu":{"name":null,"usage":null,"cores":[],"threads":null,"clockMHz":null,"temp":null},
+     "gpus":[],"temps":[],"fans":[],"net":null}},
+  {"id":"new-1","name":"Fresh","hostname":null,"platform":"linux","os":null,"order":2,"lastSeen":0,"online":false,"latest":null}
+]

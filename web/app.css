@@ -1,0 +1,64 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f4f4f2; --surface: #fcfcfb; --line: #e2e1dc;
+  --text: #0b0b0b; --text-2: #52514e; --muted: #75746f;
+  --blue: #2a78d6; --orange: #eb6834; --aqua: #1baf7a;
+  --good: #1a7f4b; --bad: #b3261e;
+  --cell-off: #e7e6e1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111110; --surface: #1a1a19; --line: #2e2e2b;
+    --text: #f0efec; --text-2: #c3c2b7; --muted: #99988f;
+    --blue: #3987e5; --orange: #d95926; --aqua: #199e70;
+    --good: #4cc38a; --bad: #f2776f;
+    --cell-off: #2a2a27;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, sans-serif; }
+.bar { display: flex; align-items: center; gap: 24px; padding: 12px 24px; background: var(--surface); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+h1 { font-size: 1.125rem; margin: 0; }
+nav { display: flex; gap: 4px; }
+nav button, .ranges button { font: inherit; padding: 6px 14px; border: 0; border-radius: 8px; background: none; color: var(--text-2); cursor: pointer; transition: background 150ms ease-out; }
+nav button:hover, .ranges button:hover { background: var(--bg); }
+nav button[aria-selected="true"], .ranges button[aria-selected="true"] { background: var(--bg); color: var(--text); font-weight: 600; }
+button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.conn { margin-left: auto; font-size: .875rem; color: var(--muted); }
+.conn.bad { color: var(--bad); }
+main { padding: 24px; max-width: 1400px; margin: 0 auto; }
+.empty { color: var(--muted); text-align: center; padding: 48px 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color 150ms ease-out; }
+.card:hover { border-color: var(--muted); }
+.card:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.card.off .body { opacity: .55; }
+.head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.head h3 { margin: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.state { font-size: .8125rem; color: var(--muted); }
+.state::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); margin-right: 6px; }
+.state.on { color: var(--good); }
+.state.on::before { background: var(--good); }
+.up { margin-left: auto; font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: .875rem; color: var(--text-2); }
+.row b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.big { font-size: 1.5rem; }
+.spark { width: 100%; height: 40px; display: block; }
+.spark path { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; }
+.cores { display: grid; grid-template-columns: repeat(auto-fill, minmax(10px, 1fr)); gap: 2px; }
+.cores i { height: 18px; border-radius: 2px; background: var(--cell-off); }
+.bar2 { height: 6px; border-radius: 3px; background: var(--cell-off); overflow: hidden; }
+.bar2 i { display: block; height: 100%; background: var(--orange); }
+.slot-netq { min-height: 20px; font-size: .8125rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; }
+.sub { font-size: .75rem; color: var(--muted); }
+dialog { width: min(900px, 94vw); max-height: 92vh; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); padding: 16px 20px; }
+dialog::backdrop { background: rgb(0 0 0 / .45); }
+dialog header { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+dialog h2 { font-size: 1.125rem; margin: 0; }
+.ranges { display: flex; gap: 4px; margin-left: auto; }
+.close { font-size: 1.5rem; line-height: 1; padding: 2px 10px; border: 0; background: none; color: var(--text-2); cursor: pointer; border-radius: 8px; }
+.chart h4 { margin: 12px 0 2px; font-size: .875rem; color: var(--text-2); }
+.chart .none { color: var(--muted); font-size: .875rem; padding: 16px 0; }
+.u-legend { font-size: .75rem; color: var(--text-2); }
+.u-legend .u-value { font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

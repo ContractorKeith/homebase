@@ -1,0 +1,10 @@
+retry: 100
+
+data: {"type":"snapshot","devices":[{"id":"studio-1","name":"Mac Studio","platform":"macos","order":0,"online":true,"latest":{"cpu":{"usage":10,"cores":[10]},"gpus":[],"temps":[],"fans":[],"net":null}}]}
+
+data: {"type":"report","id":"studio-1","device":{"id":"studio-1","name":"Mac Studio","platform":"macos","order":0,"online":true,"latest":{"cpu":{"usage":55,"cores":[55]},"gpus":[],"temps":[],"fans":[],"net":{"rx":1,"tx":2}}},"sample":{"t":1}}
+
+data: {"type":"alert","text":"ignored"}
+
+data: {"type":"status","online":{"studio-1":true,"air-1":false}}
+

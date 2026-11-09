@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>homebase</title>
+<link rel="stylesheet" href="/vendor/uplot/uPlot.min.css">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<header class="bar">
+  <h1>homebase</h1>
+  <nav role="tablist" aria-label="Views">
+    <button role="tab" id="tab-machines" aria-controls="panel-machines" aria-selected="true">Machines</button>
+    <button role="tab" id="tab-tokens" aria-controls="panel-tokens" aria-selected="false" tabindex="-1">Tokens</button>
+    <button role="tab" id="tab-github" aria-controls="panel-github" aria-selected="false" tabindex="-1">GitHub</button>
+  </nav>
+  <span id="conn" class="conn" role="status">connecting…</span>
+</header>
+<main>
+  <section id="panel-machines" role="tabpanel" aria-labelledby="tab-machines">
+    <div id="cards" class="cards"></div>
+    <p id="machines-empty" class="empty" hidden>No machines reported yet.</p>
+  </section>
+  <section id="panel-tokens" role="tabpanel" aria-labelledby="tab-tokens" hidden>
+    <p class="empty">Token usage: coming in M5.</p>
+  </section>
+  <section id="panel-github" role="tabpanel" aria-labelledby="tab-github" hidden>
+    <p class="empty">GitHub activity: coming in M5.</p>
+  </section>
+</main>
+<dialog id="history" aria-labelledby="history-title">
+  <header>
+    <h2 id="history-title"></h2>
+    <div class="ranges" role="group" aria-label="History range"></div>
+    <button class="close" aria-label="Close">×</button>
+  </header>
+  <div id="history-body"></div>
+</dialog>
+<script src="/vendor/uplot/uPlot.iife.min.js"></script>
+<script type="module" src="/js/main.js"></script>
+</body>
+</html>
