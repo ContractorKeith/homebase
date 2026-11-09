@@ -1,0 +1,1 @@
+ping: cannot resolve 1.1.1.1: Unknown host
