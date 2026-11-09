@@ -10,7 +10,8 @@ usage and network quality. Keith opens it in a browser on the MacBook. "Done" fo
 every v1 row in `docs/PLAN.md` §3 working across all three machines.
 
 ## Status
-M0 done (model types, SQLite store, CLI skeleton, CI). M1–M3 in progress. Last touched 2026-11-08.
+v1 (M0–M6) merged and installed 2026-11-08: hub + agent on the Mac Studio, agents on the
+MacBook Air and Omarchy. No release tag yet; skeptic-review comes before the tag.
 
 ## Pointers
 - `docs/PLAN.md`: goal, feature matrix, architecture, data model, API, milestones.

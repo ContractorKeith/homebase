@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"os/signal"
@@ -94,7 +95,9 @@ func (a *agent) loop(ctx context.Context) {
 	if a.scan != nil {
 		go a.usageLoop(ctx)
 	}
-	var lastSpeed time.Time
+	// The first speed test waits a random 0–15 min, so machines that start together (a
+	// reboot, a reinstall) don't measure one shared link at the same moment.
+	lastSpeed := a.now().Add(-a.speedEvery + firstSpeedDelay())
 	for {
 		due := !a.noSpeed && a.now().Sub(lastSpeed) >= a.speedEvery
 		if due {
@@ -108,6 +111,9 @@ func (a *agent) loop(ctx context.Context) {
 		}
 	}
 }
+
+// firstSpeedDelay is how long the first speed test waits; a var so tests can pin it.
+var firstSpeedDelay = func() time.Duration { return time.Duration(rand.Int64N(int64(15 * time.Minute))) }
 
 func sleepCtx(ctx context.Context, d time.Duration) error {
 	select {
