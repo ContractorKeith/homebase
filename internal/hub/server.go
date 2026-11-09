@@ -6,6 +6,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/ContractorKeith/homebase/internal/mm"
 	"github.com/ContractorKeith/homebase/internal/store"
@@ -34,6 +35,8 @@ type Server struct {
 	feed  *feed
 	speed speedQueue
 	logf  func(string, ...any)
+	// Now is the clock the range APIs use; tests replace it. New sets time.Now.
+	Now func() time.Time
 }
 
 // New builds a server.
@@ -42,7 +45,7 @@ func New(cfg Config) *Server {
 	if logf == nil {
 		logf = log.Printf
 	}
-	return &Server{Store: cfg.Store, key: cfg.Key, mm: cfg.MM, feed: newFeed(), logf: logf}
+	return &Server{Store: cfg.Store, key: cfg.Key, mm: cfg.MM, feed: newFeed(), logf: logf, Now: time.Now}
 }
 
 // Run follows machine-monitor until ctx ends. Start it once, in its own goroutine.

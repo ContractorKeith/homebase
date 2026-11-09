@@ -16,6 +16,9 @@ func (s *Server) routes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /api/ingest/usage", s.handleIngestUsage)
 	mux.HandleFunc("POST /api/ingest/net", s.handleIngestNet)
 	mux.HandleFunc("POST /api/speedtest/{id}", s.handleSpeedtest)
+	mux.HandleFunc("GET /api/tokens", s.handleTokens)
+	mux.HandleFunc("GET /api/github", s.handleGitHub)
+	mux.HandleFunc("GET /api/net", s.handleNet)
 
 	static, err := fs.Sub(web.Files, ".")
 	if err != nil {

@@ -1,0 +1,64 @@
+{
+  "buckets": [
+    {
+      "start": "2026-11-08T00:00:00-05:00",
+      "label": "Nov 8"
+    }
+  ],
+  "prevTotals": {
+    "commits": 5,
+    "additions": 40,
+    "deletions": 2,
+    "prsOpened": 2,
+    "prsMerged": 1,
+    "issues": 0,
+    "reviews": 0
+  },
+  "range": "today",
+  "repos": [
+    {
+      "repo": "keith/repo-0",
+      "commits": 1,
+      "additions": 10,
+      "deletions": 0,
+      "prsOpened": 0,
+      "prsMerged": 0,
+      "issues": 0,
+      "reviews": 0
+    }
+  ],
+  "series": {
+    "commits": [
+      1
+    ],
+    "additions": [
+      10
+    ],
+    "deletions": [
+      0
+    ],
+    "prsOpened": [
+      0
+    ],
+    "prsMerged": [
+      0
+    ],
+    "issues": [
+      0
+    ],
+    "reviews": [
+      0
+    ]
+  },
+  "totals": {
+    "commits": 1,
+    "additions": 10,
+    "deletions": 0,
+    "prsOpened": 0,
+    "prsMerged": 0,
+    "issues": 0,
+    "reviews": 0
+  },
+  "tz": "America/New_York"
+}
+
