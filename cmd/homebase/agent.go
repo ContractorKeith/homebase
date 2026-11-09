@@ -28,6 +28,9 @@ func runAgent(args []string, stdout, stderr io.Writer) int {
 	interval := fs.Duration("interval", 30*time.Second, "latency probe interval")
 	speedEvery := fs.Duration("speed-every", 6*time.Hour, "speed test interval")
 	noSpeed := fs.Bool("no-speedtest", false, "never run speed tests")
+	usageEvery := fs.Duration("usage-every", 5*time.Minute, "token usage post interval")
+	noUsage := fs.Bool("no-usage", false, "never scan or post token usage")
+	usageState := fs.String("usage-state", defaultUsageState(), "token scan state file")
 	once := fs.Bool("once", false, "run one round, then exit")
 	if err := fs.Parse(args); err != nil {
 		if err == flag.ErrHelp {
@@ -35,7 +38,7 @@ func runAgent(args []string, stdout, stderr io.Writer) int {
 		}
 		return 2
 	}
-	if *hub == "" || *keyFile == "" || *interval <= 0 || *speedEvery <= 0 {
+	if *hub == "" || *keyFile == "" || *interval <= 0 || *speedEvery <= 0 || *usageEvery <= 0 {
 		fmt.Fprintln(stderr, "homebase agent: --hub and --key-file are required; intervals must be positive")
 		return 2
 	}
@@ -61,11 +64,21 @@ func runAgent(args []string, stdout, stderr io.Writer) int {
 		sleep:      sleepCtx,
 		now:        time.Now,
 		log:        stderr,
+		usageEvery: *usageEvery,
+	}
+	if !*noUsage {
+		a.scan = scanFunc(machine, *usageState)
 	}
 	if *once {
 		if err := a.round(ctx, !a.noSpeed); err != nil {
 			fmt.Fprintf(stderr, "homebase agent: hub unreachable: %v\n", err)
 			return 1
+		}
+		if a.scan != nil {
+			if err := a.usageRound(ctx); err != nil {
+				fmt.Fprintf(stderr, "homebase agent: usage post failed: %v\n", err)
+				return 1
+			}
 		}
 		fmt.Fprintf(stdout, "homebase agent: posted to %s as %s\n", a.hub, machine)
 		return 0
@@ -78,6 +91,9 @@ func runAgent(args []string, stdout, stderr io.Writer) int {
 // A failed post keeps its samples in memory; the next round resends them.
 func (a *agent) loop(ctx context.Context) {
 	fmt.Fprintf(a.log, "homebase agent: %s -> %s every %s\n", a.machine, a.hub, a.interval)
+	if a.scan != nil {
+		go a.usageLoop(ctx)
+	}
 	var lastSpeed time.Time
 	for {
 		due := !a.noSpeed && a.now().Sub(lastSpeed) >= a.speedEvery

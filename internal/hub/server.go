@@ -32,6 +32,7 @@ type Server struct {
 	key   string
 	mm    Source
 	feed  *feed
+	speed speedQueue
 	logf  func(string, ...any)
 }
 
