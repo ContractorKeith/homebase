@@ -38,6 +38,7 @@ commands:
   hub      run the dashboard hub and collector
   agent    report this machine's token usage and network quality to a hub
   scan     parse local agent sessions and print hourly usage
+  service  install, remove or check the per-user service (launchd / systemd)
   version  print the version
 `
 
