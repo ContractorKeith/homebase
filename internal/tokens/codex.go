@@ -48,6 +48,10 @@ func ParseCodex(path string) ([]model.Usage, error) {
 			if l.Timestamp.IsZero() {
 				return
 			}
+			if t.Input < prev.Input || t.Output < prev.Output || t.Cached < prev.Cached ||
+				t.CacheWrite < prev.CacheWrite || t.Reasoning < prev.Reasoning {
+				prev = codexTotal{} // the counter restarted; never emit a negative delta
+			}
 			u := a.add(model.AgentCodex, mdl, l.Timestamp)
 			u.Input += (t.Input - t.Cached) - (prev.Input - prev.Cached)
 			u.CacheRead += t.Cached - prev.Cached

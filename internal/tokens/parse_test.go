@@ -4,6 +4,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strconv"
 	"testing"
 	"time"
 
@@ -95,5 +96,24 @@ func checkRows(t *testing.T, got, want []model.Usage) {
 		if got[i] != want[i] {
 			t.Errorf("row %d:\n got  %+v\n want %+v", i, got[i], want[i])
 		}
+	}
+}
+
+func TestParseCodexCounterRestartNeverNegative(t *testing.T) {
+	p := filepath.Join(t.TempDir(), "rollout.jsonl")
+	ev := func(ts string, in, out int) string {
+		return `{"type":"event_msg","timestamp":"` + ts + `","payload":{"type":"token_count","info":{"total_token_usage":{"input_tokens":` +
+			strconv.Itoa(in) + `,"output_tokens":` + strconv.Itoa(out) + `}}}}` + "\n"
+	}
+	body := ev("2026-11-08T10:00:00Z", 1000, 100) + ev("2026-11-08T10:05:00Z", 50, 500)
+	if err := os.WriteFile(p, []byte(body), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	rows, err := ParseCodex(p)
+	if err != nil || len(rows) != 1 {
+		t.Fatalf("rows %+v err %v", rows, err)
+	}
+	if r := rows[0]; r.Input != 1050 || r.Output != 600 {
+		t.Fatalf("got input %d output %d, want 1050 and 600", r.Input, r.Output)
 	}
 }
